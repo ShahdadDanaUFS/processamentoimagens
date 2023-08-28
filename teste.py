@@ -25,7 +25,7 @@ def size(source):
     return [altura, largura]
 
     
-deci = "D:\ProjetosCodigo\PI\deci.png"
+deci = "D:\ProjetosCodigo\PI\processamentoimagens\Anexo\imagens\deci.png"
 
 #print("Numeros de canais eh: ",nchannels(deci))
 #print("Vetor com altura e largura: ",size(deci))
@@ -37,7 +37,7 @@ sinal = np.sin(40 * 2 * np.pi * tempo) + 0.5 * np.sin(90 * 2 * np.pi * tempo)
 matplot.xlabel("Tempo (s)")
 matplot.ylabel("Amplitude")
 matplot.plot(tempo, sinal)
-matplot.savefig('exportacao.png')
-imagem = "D:\ProjetosCodigo\PI\exportacao.png"
-imshow(imread(imagem))
+matplot.savefig('Figura.png')
+figura = "D:\ProjetosCodigo\PI\Figura.png"
+imshow(imread(figura))
 matplot.close()
