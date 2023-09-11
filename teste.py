@@ -1,6 +1,26 @@
 import matplotlib.pyplot as matplot
 import numpy as np
 
+COMPUTADOR = "CASA"
+#COMPUTADOR = "UFS"
+
+REF_CASA = "E"
+REF_UFS = "D"
+
+if (COMPUTADOR == "CASA"):
+    caminho = REF_CASA
+if (COMPUTADOR == "UFS"):
+    caminho = REF_UFS
+
+deci = caminho+r':\processamentoimagens\anexo\imagens\deci.png'
+lena = caminho+r':\processamentoimagens\anexo\lena\lena_orig.png'
+lenaCinza = caminho+r':\processamentoimagens\anexo\lena\lena_gray.png'
+lenaOlho = caminho+r':\processamentoimagens\anexo\lena\lena_orig_eye.png'
+
+R = 0.299
+G = 0.587
+B = 0.114
+
 def imread(source):
     im = matplot.imread(source)
     if (im.dtype == "float32"):
@@ -16,28 +36,22 @@ def imshow(image):
 
 ###QUESTAO 1
 def nchannels(source):
-    altura, largura, canais  = imread(source).shape
-    return canais
-
+    objeto = imread(source).shape
+    if (len(objeto) == 2):
+        return 1
+    else:
+        return objeto[2] 
+    
 ###QUESTAO 2
 def size(source):
-    altura, largura, canais  = imread(source).shape
-    return [altura, largura]
+    objeto = imread(source).shape
+    altura = objeto[0]
+    largura = objeto[1]
+    return [largura, altura]
 
     
-deci = "D:\ProjetosCodigo\PI\processamentoimagens\Anexo\imagens\deci.png"
+imagemAtual = deci
 
-#print("Numeros de canais eh: ",nchannels(deci))
-#print("Vetor com altura e largura: ",size(deci))
-#imshow(imread(deci))
-
-tempo = np.linspace(0, 0.5, 500) # 500 números, de 0 a 0.5 -> 1 kHz de amostragem
-sinal = np.sin(40 * 2 * np.pi * tempo) + 0.5 * np.sin(90 * 2 * np.pi * tempo)
-
-matplot.xlabel("Tempo (s)")
-matplot.ylabel("Amplitude")
-matplot.plot(tempo, sinal)
-matplot.savefig('Figura.png')
-figura = "D:\ProjetosCodigo\PI\Figura.png"
-imshow(imread(figura))
-matplot.close()
+print("Numeros de canais eh:",nchannels(imagemAtual))
+print("Vetor com largura e altura:",size(imagemAtual))
+imshow(imread(imagemAtual))
