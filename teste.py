@@ -21,37 +21,54 @@ R = 0.299
 G = 0.587
 B = 0.114
 
-def imread(source):
-    im = matplot.imread(source)
-    if (im.dtype == "float32"):
-        im = np.uint8(255*im)
-    if (len(im.shape) >= 3 and im.shape[2] > 3):
-        im = im[:, :, 0:3]
-    return im
+def imread(fonte):
+    imagem = matplot.imread(fonte)
+    if (imagem.dtype == "float32"):
+        imagem = np.uint8(255*im)
+    if (len(imagem.shape) >= 3 and imagem.shape[2] > 3):
+        imagem = imagem[:, :, 0:3]
+    return imagem
 
-def imshow(image):
-    plot = matplot.imshow(image, cmap=matplot.gray(), origin="upper")
+def imshow(imagem):
+    plot = matplot.imshow(imagem, cmap=matplot.gray(), origin="upper")
     plot.set_interpolation('nearest')
     matplot.show()
 
 ###QUESTAO 1
-def nchannels(source):
-    objeto = imread(source).shape
+def nchannels(fonte):
+    objeto = imread(fonte).shape
     if (len(objeto) == 2):
         return 1
     else:
         return objeto[2] 
     
 ###QUESTAO 2
-def size(source):
-    objeto = imread(source).shape
+def size(fonte):
+    objeto = imread(fonte).shape
     altura = objeto[0]
     largura = objeto[1]
     return [largura, altura]
 
-    
+###QUESTAO 3
+def rgb2gray(fonte):
+    imagemCopia = fonte.copy()
+    imagemCinza = np.dot(imagemCopia, [R, G, B])
+    return imagemCinza
+
+###QUESTAO 4
+def imreadgray(fonte):
+    imagem = rgb2gray(fonte)
+    return imshow(imagem)
+
+
+
+imshow(imagem_cinza)
+#imshow(imread(deci))
+
+'''
 imagemAtual = deci
 
 print("Numeros de canais eh:",nchannels(imagemAtual))
 print("Vetor com largura e altura:",size(imagemAtual))
-imshow(imread(imagemAtual))
+'''
+
