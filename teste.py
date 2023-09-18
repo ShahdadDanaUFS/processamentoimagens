@@ -1,43 +1,80 @@
 import matplotlib.pyplot as matplot
 import numpy as np
 
-def imread(source):
-    im = matplot.imread(source)
-    if (im.dtype == "float32"):
-        im = np.uint8(255*im)
-    if (len(im.shape) >= 3 and im.shape[2] > 3):
-        im = im[:, :, 0:3]
-    return im
+COMPUTADOR = "CASA"
+#COMPUTADOR = "UFS"
 
-def imshow(image):
-    plot = matplot.imshow(image, cmap=matplot.gray(), origin="upper")
+if (COMPUTADOR == "UFS"):
+    deci =      "/media/aluno/SHAHDAD/processamentoimagens/anexo/imagens/deci.png"
+    lena =      "/media/aluno/SHAHDAD/processamentoimagens/anexo/lena/lena_orig.png"
+    lenaCinza = "/media/aluno/SHAHDAD/processamentoimagens/anexo/lena/lena_gray.png"
+    lenaOlho =  "/media/aluno/SHAHDAD/processamentoimagens/anexo/lena/lena_orig_eye.png"    
+if (COMPUTADOR == "CASA"):
+    deci =      r'E:\processamentoimagens\anexo\imagens\deci.png'
+    lena =      r'E:\processamentoimagens\anexo\lena\lena_orig.png'
+    lenaCinza = r'E:\processamentoimagens\anexo\lena\lena_gray.png'
+    lenaOlho =  r'E:\processamentoimagens\anexo\lena\lena_orig_eye.png'
+    
+#---------
+R = 0.299
+G = 0.587
+B = 0.114
+#---------
+
+def imread(fonte):
+    imagem = matplot.imread(fonte)
+    if (imagem.dtype == "float32"):
+        imagem = np.uint8(255*imagem)
+    if (len(imagem.shape) >= 3 and imagem.shape[2] > 3):
+        imagem = imagem[:, :, 0:3]
+    return imagem
+
+def imshow(imagem):
+    plot = matplot.imshow(imagem, cmap=matplot.gray(), origin="upper")
     plot.set_interpolation('nearest')
     matplot.show()
 
 ###QUESTAO 1
-def nchannels(source):
-    altura, largura, canais  = imread(source).shape
-    return canais
-
-###QUESTAO 2
-def size(source):
-    altura, largura, canais  = imread(source).shape
-    return [altura, largura]
-
+def nchannels(imagem):
+    objeto = imagem.shape
+    if (len(objeto) == 2):
+        return 1
+    else:
+        return objeto[2] 
     
-deci = "D:\ProjetosCodigo\PI\processamentoimagens\Anexo\imagens\deci.png"
+###QUESTAO 2
+def size(imagem):
+    objeto = imagem.shape
+    altura = objeto[0]
+    largura = objeto[1]
+    return [largura, altura]
 
-#print("Numeros de canais eh: ",nchannels(deci))
-#print("Vetor com altura e largura: ",size(deci))
-#imshow(imread(deci))
+###QUESTAO 3
+def rgb2gray(imagem):
+    if (nchannels(imagem) == 1):
+        return imagem
+    imagem = (
+        imagem[:, :, 0] * R +
+        imagem[:, :, 1] * G +
+        imagem[:, :, 2] * B)
+    return imagem
 
-tempo = np.linspace(0, 0.5, 500) # 500 números, de 0 a 0.5 -> 1 kHz de amostragem
-sinal = np.sin(40 * 2 * np.pi * tempo) + 0.5 * np.sin(90 * 2 * np.pi * tempo)
+###QUESTAO 4
+def imreadgray(fonte):
+    imagem = matplot.imread(fonte)
+    return rgb2gray(imagem)
 
-matplot.xlabel("Tempo (s)")
-matplot.ylabel("Amplitude")
-matplot.plot(tempo, sinal)
-matplot.savefig('Figura.png')
-figura = "D:\ProjetosCodigo\PI\Figura.png"
-imshow(imread(figura))
-matplot.close()
+###QUESTAO 5:
+def thresh(imagem, limiar):
+    imagemSaida = np.copy(imagem)
+    return imagemSaida
+
+imagemAtual = deci
+#imagemAtual = lena
+#imagemAtual = lenaCinza
+#imagemAtual = lenaOlho
+
+print("Numeros de canais eh:",nchannels(imread(imagemAtual)))
+print("Vetor com largura e altura:",size(imread(imagemAtual)))
+imshow(imread(imagemAtual))
+imshow(imreadgray(imagemAtual))
