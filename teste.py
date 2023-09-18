@@ -74,7 +74,8 @@ imagemAtual = deci
 #imagemAtual = lenaCinza
 #imagemAtual = lenaOlho
 
-print("Numeros de canais eh:",nchannels(imread(imagemAtual)))
-print("Vetor com largura e altura:",size(imread(imagemAtual)))
-imshow(imread(imagemAtual))
-imshow(imreadgray(imagemAtual))
+print("Numeros de canais eh: ",nchannels(imread(imagemAtual)))
+print("Vetor com altura e largura: ",size(imread(imagemAtual)))
+imshow(imread(deci))
+imshow(imreadgray(deci))
+
