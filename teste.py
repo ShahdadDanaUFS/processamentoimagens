@@ -5,11 +5,13 @@ COMPUTADOR = "CASA"
 #COMPUTADOR = "UFS"
 
 if (COMPUTADOR == "UFS"):
+    teste =     "/media/aluno/SHAHDAD/processamentoimagens/anexo/imagens/teste.png"
     deci =      "/media/aluno/SHAHDAD/processamentoimagens/anexo/imagens/deci.png"
     lena =      "/media/aluno/SHAHDAD/processamentoimagens/anexo/lena/lena_orig.png"
     lenaCinza = "/media/aluno/SHAHDAD/processamentoimagens/anexo/lena/lena_gray.png"
     lenaOlho =  "/media/aluno/SHAHDAD/processamentoimagens/anexo/lena/lena_orig_eye.png"    
 if (COMPUTADOR == "CASA"):
+    teste =     r'E:\processamentoimagens\anexo\imagens\teste.png'
     deci =      r'E:\processamentoimagens\anexo\imagens\deci.png'
     lena =      r'E:\processamentoimagens\anexo\lena\lena_orig.png'
     lenaCinza = r'E:\processamentoimagens\anexo\lena\lena_gray.png'
@@ -69,13 +71,25 @@ def thresh(imagem, limiar):
     imagemSaida = np.copy(imagem)
     return imagemSaida
 
+def negative(imagem):
+    imagemSaida = np.copy(imagem)
+    '''
+    largura, altura = size(imagem)
+    for y in range(altura):
+        for x in range(largura):
+            r, g, b = imagem[y, x]
+            imagemSaida[y, x] = [255 - r, 255 - g, 255 - b]
+    '''
+    imagemSaida = 255 - imagemSaida
+    return imagemSaida
+
 imagemAtual = deci
 #imagemAtual = lena
 #imagemAtual = lenaCinza
 #imagemAtual = lenaOlho
 
-print("Numeros de canais eh: ",nchannels(imread(imagemAtual)))
-print("Vetor com altura e largura: ",size(imread(imagemAtual)))
-imshow(imread(deci))
-imshow(imreadgray(deci))
-
+#print("Numeros de canais eh: ",nchannels(imread(imagemAtual)))
+#print("Vetor com altura e largura: ",size(imread(imagemAtual)))
+#imshow(imread(imagemAtual))
+#imshow(imreadgray(imagemAtual))
+imshow(negative(imread(imagemAtual)))
