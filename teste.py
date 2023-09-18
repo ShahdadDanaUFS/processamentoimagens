@@ -55,11 +55,12 @@ def size(imagem):
 def rgb2gray(imagem):
     if (nchannels(imagem) == 1):
         return imagem
-    imagem = (
+    imagemSaida = np.copy(imagem)
+    imagemSaida = (
         imagem[:, :, 0] * R +
         imagem[:, :, 1] * G +
         imagem[:, :, 2] * B)
-    return imagem
+    return imagemSaida
 
 ###QUESTAO 4
 def imreadgray(fonte):
@@ -80,7 +81,7 @@ def negative(imagem):
             r, g, b = imagem[y, x]
             imagemSaida[y, x] = [255 - r, 255 - g, 255 - b]
     '''
-    imagemSaida = 255 - imagemSaida
+    imagemSaida = 255 - imagem
     return imagemSaida
 
 imagemAtual = deci
@@ -88,8 +89,8 @@ imagemAtual = deci
 #imagemAtual = lenaCinza
 #imagemAtual = lenaOlho
 
-#print("Numeros de canais eh: ",nchannels(imread(imagemAtual)))
-#print("Vetor com altura e largura: ",size(imread(imagemAtual)))
-#imshow(imread(imagemAtual))
-#imshow(imreadgray(imagemAtual))
+print("Numeros de canais eh: ",nchannels(imread(imagemAtual)))
+print("Vetor com altura e largura: ",size(imread(imagemAtual)))
+imshow(imread(imagemAtual))
+imshow(imreadgray(imagemAtual))
 imshow(negative(imread(imagemAtual)))
